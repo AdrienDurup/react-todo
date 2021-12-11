@@ -8,12 +8,20 @@ export default class ListItem extends React.Component {
     console.log("constructor");
   }
 
+  handleCheckbox = (e) => {
+    const { checkTask, isChecked, id } = this.props;
+    /* we update view */
+    e.target.checked = !isChecked;
+    console.log(e.target.checked);
+    /* we execute checkTask in ToDo comp, toggling isChecked */
+    checkTask(!isChecked, id);
+  }
+
   render() {
-    const { newTask, checkTask, isChecked, id } = this.props;
-    console.log("OK",id,newTask);
-    console.log(id);
+    const { newTask, isChecked } = this.props;
+    console.log("OK", newTask);
     return (
-      <li key={id}><input type="checkbox" checked={isChecked} onChange={checkTask} />{newTask}</li>
+      <li><input type="checkbox" checked={isChecked} onChange={this.handleCheckbox} />{newTask}</li>
     )
   }
 }

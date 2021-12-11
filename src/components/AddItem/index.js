@@ -9,18 +9,26 @@ export default class AddItem extends React.Component {
     super(props);
   }
 
-  // componentDidUpdate() {
-  //   console.log("update");
-  //   thes.
-  //   const { clearField } = this.props;
-  //   clearField();
-  // }
+  componentDidUpdate() {
+    // const { clearField } = this.props;
+    // clearField();
+    console.log("AddItemODM did update");
+  }
 
+  clearFieldAndAddTask = (e) => {
+    e.preventDefault();
+    /* execute addTask on ToDo Component */
+    const { addTask } = this.props;
+    addTask(e);
+    /* reset input */
+    const form = e.target;
+    const input = form.querySelector('input');
+    input.value = '';
+  }
   render() {
-    const { addTask, fieldContent } = this.props;
     return (
-      <form onSubmit={addTask}>
-        <input type="text" placeholder="add a task" name="newTaskContent" />
+      <form onSubmit={this.clearFieldAndAddTask}>
+        <input type="text" placeholder="add a task" />
       </form>
     );
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import AddItem from '../AddItem';
 import Counter from '../Counter';
@@ -15,18 +15,16 @@ export default class ToDo extends React.Component {
     };
   }
 
-  // this.clearField
-  // componentDidUpdate() {
-  //   this.setState({ fieldContent: '' });
-  // }
+  componentDidUpdate() {
+    console.log("ToDo update");
+  }
 
   addTask = (e) => {
     e.preventDefault();
     const form = e.target;
-    const data = new FormData(form);
-    console.log(data['newTaskContent']);
-    const { newTaskContent } = data;
-    console.log('newTaskContent', newTaskContent);
+    const input = form.querySelector('input');
+    const newTaskContent = input.value;
+
     /* we get tasks array from state */
     const { tasks } = this.state;
     /* define new state, setting id to current tasks array length */
@@ -43,13 +41,19 @@ export default class ToDo extends React.Component {
     this.setState(() => ({ tasks, count }));
   }
 
-  checkTask = (e) => {
-    const isChecked = e.target.value;
-    this.setState(() => ({ isChecked }));
+  checkTask = (isCheckedUpdated, id) => {
+    const { tasks } = this.state;
+    /* we get task and modify it */
+    const el = tasks.find((el) => el.id === id);
+    el.isChecked = isCheckedUpdated;
+    /* we replace element in array (at index el.id, one element, with modified) */
+    tasks.splice(el.id, 1, el);
+    /* set state with new array */
+    this.setState(() => ({ tasks }));
   }
 
   render() {
-    const { count, tasks,fieldContent } = this.state;
+    const { count, tasks, fieldContent } = this.state;
     return (
       <>
         <AddItem value="" addTask={this.addTask} fieldContent={fieldContent} />

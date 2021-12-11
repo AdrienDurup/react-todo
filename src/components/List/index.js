@@ -16,7 +16,7 @@ export default class List extends React.Component {
     return (
       <ul>
         {tasks.map((el) => (
-          <ListItem {...el} checkTask={checkTask} />
+          <ListItem {...el} checkTask={checkTask} key={el.id} />
         ))}
       </ul>
     )
