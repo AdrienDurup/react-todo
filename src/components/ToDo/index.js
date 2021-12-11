@@ -35,10 +35,18 @@ export default class ToDo extends React.Component {
     };
     /* we add a new entry in array */
     tasks.push(newTask);
-    /* we count entries */
-    const count = tasks.length;
     /* and we send task array to state */
-    this.setState(() => ({ tasks, count }));
+    this.setState(() => ({ tasks }));
+    /* we update count */
+    this.count();
+    /* we sort ? */
+  }
+
+  count = () => {
+    const { tasks } = this.state;
+    /* we count pending tasks (not checked) */
+    const count = tasks.filter((el) => el.isChecked === false).length;
+    this.setState({ count });
   }
 
   checkTask = (isCheckedUpdated, id) => {
@@ -50,6 +58,8 @@ export default class ToDo extends React.Component {
     tasks.splice(el.id, 1, el);
     /* set state with new array */
     this.setState(() => ({ tasks }));
+    /* we update count */
+    this.count();
   }
 
   render() {
