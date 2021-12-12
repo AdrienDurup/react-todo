@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 export default class AddItem extends React.Component {
   reset = '';
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidUpdate() {
     // const { clearField } = this.props;
@@ -25,9 +25,10 @@ export default class AddItem extends React.Component {
     const input = form.querySelector('input');
     input.value = '';
   }
+
   render() {
     return (
-      <form onSubmit={this.clearFieldAndAddTask}>
+      <form className="todo-form" onSubmit={this.clearFieldAndAddTask}>
         <input type="text" placeholder="add a task" />
       </form>
     );

@@ -5,7 +5,7 @@ export default class ListItem extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("constructor");
+    console.log('constructor');
   }
 
   handleCheckbox = (e) => {
@@ -19,9 +19,11 @@ export default class ListItem extends React.Component {
 
   render() {
     const { newTask, isChecked } = this.props;
-    console.log("OK", newTask);
+    console.log('OK', newTask);
     return (
-      <li><input type="checkbox" checked={isChecked} onChange={this.handleCheckbox} />{newTask}</li>
+      <li className={isChecked ? 'todo-item todo-item--checked' : 'todo-item'}>
+        <input type="checkbox" className="todo-item__checkbox" checked={isChecked} onChange={this.handleCheckbox} />{newTask}
+      </li>
     )
   }
 }

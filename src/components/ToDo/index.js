@@ -34,6 +34,7 @@ export default class ToDo extends React.Component {
       id: tasks.length,
     };
     /* we add a new entry in array */
+    // tasks.push(newTask);
     tasks.push(newTask);
     /* and we send task array to state */
     this.setState(() => ({ tasks }));
@@ -60,7 +61,10 @@ export default class ToDo extends React.Component {
     this.setState(() => ({ tasks }));
     /* we update count */
     this.count();
+    /*  */
   }
+
+
 
   render() {
     const { count, tasks, fieldContent } = this.state;
