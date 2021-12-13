@@ -5,14 +5,18 @@ import PropTypes from 'prop-types';
 
 export default class AddItem extends React.Component {
   reset = '';
-  // constructor(props) {
-  //   super(props);
-  // }
 
   componentDidUpdate() {
     // const { clearField } = this.props;
     // clearField();
     console.log("AddItemODM did update");
+  }
+
+  updateValInState = (e) => {
+    const { setMainState } = this.props;
+    setMainState({
+      fieldContent: e.target.value,
+    });
   }
 
   clearFieldAndAddTask = (e) => {
@@ -21,19 +25,22 @@ export default class AddItem extends React.Component {
     const { addTask } = this.props;
     addTask(e);
     /* reset input */
-    const form = e.target;
-    const input = form.querySelector('input');
-    input.value = '';
+    const { setMainState } = this.props;
+    setMainState({
+      fieldContent: '',
+    });
   }
 
   render() {
+    const { fieldContent } = this.props;
     return (
       <form className="todo-form" onSubmit={this.clearFieldAndAddTask}>
-        <input type="text" placeholder="add a task" />
+        <input type="text" placeholder="add a task" onChange={this.updateValInState} value={fieldContent} />
       </form>
     );
   }
 }
 
-// AddItem.propTypes={
-// };
+AddItem.propTypes = {
+  fieldContent: PropTypes.string.isRequired,
+};

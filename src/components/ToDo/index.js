@@ -19,6 +19,11 @@ export default class ToDo extends React.Component {
     console.log("ToDo update");
   }
 
+  setMainState = (val) => {
+    this.setState(val);
+    console.log(this.state.fieldContent);
+  }
+
   addTask = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -64,13 +69,11 @@ export default class ToDo extends React.Component {
     /*  */
   }
 
-
-
   render() {
     const { count, tasks, fieldContent } = this.state;
     return (
       <>
-        <AddItem value="" addTask={this.addTask} fieldContent={fieldContent} />
+        <AddItem addTask={this.addTask} fieldContent={fieldContent} setMainState={this.setMainState} />
         <Counter count={count}>task(s) pending</Counter>
         <List tasks={tasks} checkTask={this.checkTask} />
       </>
@@ -80,6 +83,7 @@ export default class ToDo extends React.Component {
 
 ToDo.propTypes = PropTypes.shape({
   count: PropTypes.number.isRequired,
+  fieldContent: PropTypes.string.isRequired,
   tasks: PropTypes.arrayOf(
     {
       isChecked: PropTypes.bool.isRequired,
