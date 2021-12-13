@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes
+import { PropTypes } from 'prop-types';
 
 export default class ListItem extends React.Component {
 
@@ -9,21 +9,34 @@ export default class ListItem extends React.Component {
   }
 
   handleCheckbox = (e) => {
-    const { checkTask, isChecked, id } = this.props;
-    /* we update view */
-    //e.target.checked = !isChecked;
-    //console.log(e.target.checked);
+    const { setTask, isChecked, id } = this.props;
     /* we execute checkTask in ToDo comp, toggling isChecked */
-    checkTask(!isChecked, id);
+    setTask(id, { isChecked: !isChecked });
+  }
+
+  addFav = (e) => {
+    const { setTask, isFav, id } = this.props;
+    console.log("isFav before", isFav);
+    setTask(id, { isFav: !isFav });
   }
 
   render() {
-    const { newTask, isChecked } = this.props;
+    const { newTask, isChecked, isFav } = this.props;
     console.log('OK', newTask);
     return (
       <li className={isChecked ? 'todo-item todo-item--checked' : 'todo-item'}>
+        <button className='todo-item__fav-button' onClick={this.addFav}><i className={isFav ? "fas fa-star" : "far fa-star"}></i></button>
         <input type="checkbox" className="todo-item__checkbox" checked={isChecked} onChange={this.handleCheckbox} />{newTask}
       </li>
     )
   }
 }
+
+
+ListItem.propTypes = {
+  newTask: PropTypes.string.isRequired,
+  isChecked: PropTypes.bool.isRequired,
+  isFav: PropTypes.bool.isRequired,
+  setTask: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+};

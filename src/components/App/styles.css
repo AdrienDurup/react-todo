@@ -73,3 +73,12 @@ border:none;
 border-radius: 50%;
 transition: 200ms ease-in-out;
 }
+.todo-item__fav-button{
+  appearance: unset;
+  border:none;
+  padding:none;
+  background-color: none;
+}
+.fas{
+  background-color: none;
+}
