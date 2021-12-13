@@ -57,28 +57,23 @@ export default class ToDo extends React.Component {
 
   setTask = (id, obj) => {
     const { tasks } = this.state;
-    /* we copy tasks array */
-    const newTasksArray = [...tasks];
-    /* we get task, grab its index */
-    let index;
-    const elem = tasks.find((el, i) => {
-      if (el.id === id) {
-        index = i;
-        return true;
-      };
-      return false;
-    });
-    /* we modify task for each property of argument object */
-    for (const key in obj) {
-      elem[key] = obj[key];
-    };
 
-    console.log(elem);
-    /* we replace task in array at task position in array */
-    newTasksArray.splice(index, 1, elem);
+    console.time('test');
+    /*  */
+    const newTasksArray = tasks.map((el) => {
+      if (el.id === id) {/* if element is the one we want modify */
+        /* we modify element for each property of argument object "obj" */
+        for (const key in obj) {
+          el[key] = obj[key];
+        };
+      }
+      return el;/* return element */
+    });
+    console.timeEnd('test');
 
     /* set state with new array */
     this.setState(() => ({ tasks: newTasksArray }));
+
     /* we update count */
     this.count();
     /*  */
