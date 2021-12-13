@@ -77,8 +77,5 @@ transition: 200ms ease-in-out;
   appearance: unset;
   border:none;
   padding:none;
-  background-color: none;
-}
-.fas{
-  background-color: none;
+  background-color: transparent;
 }

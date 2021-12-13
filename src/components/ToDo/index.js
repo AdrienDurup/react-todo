@@ -30,23 +30,22 @@ export default class ToDo extends React.Component {
     e.preventDefault();
     /* we get input and tasks array from state */
     const { fieldContent, tasks } = this.state;
-    if (fieldContent) {
-      /* define new state, setting id to current tasks array length */
-      const newTask = {
-        isChecked: false,
-        isFav: false,
-        newTask: fieldContent,
-        id: tasks.length,
-      };
-      /* we copy the array and we add a new entry in array */
-      const newTasksArray = [newTask, ...tasks];
-
-      /* and we send task array to state */
-      this.setState(() => ({ tasks: newTasksArray }));
-      /* we update count */
-      this.count();
-      /* we sort ? */
+    if (!fieldContent) return;
+    /* define new state, setting id to current tasks array length */
+    const newTask = {
+      isChecked: false,
+      isFav: false,
+      newTask: fieldContent,
+      id: tasks.length,
     };
+    /* we copy the array and we add a new entry in array */
+    const newTasksArray = [newTask, ...tasks];
+
+    /* and we send task array to state */
+    this.setState(() => ({ tasks: newTasksArray }));
+    /* we update count */
+    this.count();
+    /* we sort ? */
   }
 
   count = () => {
@@ -56,7 +55,7 @@ export default class ToDo extends React.Component {
     this.setState({ count });
   }
 
-  setTask = (id,obj) => {
+  setTask = (id, obj) => {
     const { tasks } = this.state;
     /* we copy tasks array */
     const newTasksArray = [...tasks];
@@ -70,8 +69,8 @@ export default class ToDo extends React.Component {
       return false;
     });
     /* we modify task for each property of argument object */
-    for(const key in obj){
-      elem[key]=obj[key];
+    for (const key in obj) {
+      elem[key] = obj[key];
     };
 
     console.log(elem);
