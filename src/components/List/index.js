@@ -24,6 +24,8 @@ export default class List extends React.Component {
 
   render() {
     const { tasks, checkTask } = this.props;
+    const test=[...tasks];
+    console.log(test);
     const orderedTasks = this.sortTasks(tasks);
     console.log("rendering list", orderedTasks);
     return (

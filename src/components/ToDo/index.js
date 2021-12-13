@@ -26,23 +26,19 @@ export default class ToDo extends React.Component {
 
   addTask = (e) => {
     e.preventDefault();
-    const form = e.target;
-    const input = form.querySelector('input');
-    const newTaskContent = input.value;
-
-    /* we get tasks array from state */
-    const { tasks } = this.state;
+    /* we get input and tasks array from state */
+    const { fieldContent, tasks } = this.state;
     /* define new state, setting id to current tasks array length */
     const newTask = {
       isChecked: false,
-      newTask: newTaskContent,
+      newTask: fieldContent,
       id: tasks.length,
     };
-    /* we add a new entry in array */
-    // tasks.push(newTask);
-    tasks.push(newTask);
+    /* we copy the array and we add a new entry in array */
+    const newTasksArray = [newTask, ...tasks];
+
     /* and we send task array to state */
-    this.setState(() => ({ tasks }));
+    this.setState(() => ({ tasks: newTasksArray }));
     /* we update count */
     this.count();
     /* we sort ? */
@@ -57,13 +53,25 @@ export default class ToDo extends React.Component {
 
   checkTask = (isCheckedUpdated, id) => {
     const { tasks } = this.state;
-    /* we get task and modify it */
-    const el = tasks.find((el) => el.id === id);
-    el.isChecked = isCheckedUpdated;
-    /* we replace element in array (at index el.id, one element, with modified) */
-    tasks.splice(el.id, 1, el);
+    /* we copy tasks array */
+    const newTasksArray = tasks.slice();
+    /* we get task, grab its index */
+    let index;
+    const elem = tasks.find((el, i) => {
+      if (el.id === id) {
+        index = i;
+        return true;
+      };
+      return false;
+    });
+    /* we modify task */
+    elem.isChecked = isCheckedUpdated;
+    console.log(elem);
+    /* we replace task in array at task position in array */
+    newTasksArray.splice(index, 1, elem);
+
     /* set state with new array */
-    this.setState(() => ({ tasks }));
+    this.setState(() => ({ tasks: newTasksArray }));
     /* we update count */
     this.count();
     /*  */

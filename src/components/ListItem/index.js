@@ -11,8 +11,8 @@ export default class ListItem extends React.Component {
   handleCheckbox = (e) => {
     const { checkTask, isChecked, id } = this.props;
     /* we update view */
-    e.target.checked = !isChecked;
-    console.log(e.target.checked);
+    //e.target.checked = !isChecked;
+    //console.log(e.target.checked);
     /* we execute checkTask in ToDo comp, toggling isChecked */
     checkTask(!isChecked, id);
   }
