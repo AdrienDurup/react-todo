@@ -17,7 +17,7 @@ export default class ToDo extends React.Component {
   }
 
   componentDidMount() {
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     this.setState({ tasks });
   }
 
@@ -84,9 +84,8 @@ export default class ToDo extends React.Component {
     /*  */
   }
 
-  sortTasks = (tasks) => {
-    console.time('test');
-    const tmpTasks = tasks.slice();
+  sortTasks = () => {
+    const tmpTasks = [...this.state.tasks];
     tmpTasks.sort((a, b) => {
       if (a.isChecked === b.isChecked) {// if same checked status
         if (a.isFav === b.isFav) return a.id - b.id; // if same fav status, sort ASC
@@ -96,17 +95,16 @@ export default class ToDo extends React.Component {
       if (a.isChecked && !b.isChecked) return 1;// if b is unchecked, swap with a
       if (!a.isChecked && b.isChecked) return -1;// if a is unchecked, a and b keep position
     });
-    console.timeEnd('test');
     return tmpTasks;
   }
 
   render() {
-    const { count, tasks, fieldContent } = this.state;
+    const { count, fieldContent } = this.state;
     return (
       <>
         <AddItem addTask={this.addTask} fieldContent={fieldContent} setMainState={this.setMainState} />
         <Counter count={count}>task(s) pending</Counter>
-        <List tasks={this.sortTasks(tasks)} setTask={this.setTask} />
+        <List tasks={this.sortTasks()} setTask={this.setTask} />
       </>
     );
   }

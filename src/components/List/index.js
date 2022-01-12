@@ -4,13 +4,8 @@ import { PropTypes } from 'prop-types';
 import ListItem from '../ListItem';
 
 export default class List extends React.Component {
-
-  constructor(props){
-    super(props);
-  }
-
   componentDidUpdate() {
-    console.log("list update");
+    console.log('list update');
     const { tasks } = this.props;
     console.log(tasks);
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -24,7 +19,7 @@ export default class List extends React.Component {
           <ListItem {...el} key={el.id} setTask={setTask} />
         ))}
       </ul>
-    )
+    );
   }
 }
 
